@@ -1,16 +1,5 @@
-# Ignore Python bytecode
-*.pyc
 __pycache__/
-
-# Ignore Django migrations
-*/migrations/
-
-# Ignore environment variables
-.env
-
-# Ignore node modules
+*.py[cod]
+*.sqlite3
 node_modules/
-
-# Ignore build files
-build/
-dist/
+.env
