@@ -1,94 +1,147 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
+/* General Reset */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f8f8f8;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body Styling */
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f0f0f0;
     color: #333;
 }
 
-/* Header Styles */
-header {
+/* App Container */
+#app {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #8B0000; /* Maroon color */
-    color: white;
+    width: 100%;
 }
 
-#logo {
-    width: 150px;
-}
-
-#hamburger-icon {
-    width: 30px;
-    cursor: pointer;
-    display: none;
-}
-
-/* Sidebar Styles */
-#sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* Sidebar Styling */
+.sidebar {
     width: 250px;
-    height: 100%;
-    background-color: #A52A2A; /* Brown color */
-    padding-top: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    overflow: auto;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(-100%);
-}
-
-#sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-#sidebar ul li {
-    padding: 15px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#sidebar ul li a {
+    background-color: maroon;
     color: white;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-#sidebar ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Content Area Styles */
-#content {
-    margin-left: 260px;
-    padding: 20px;
-    transition: margin-left 0.3s ease-in-out;
-}
-
-/* Show Sidebar */
-#sidebar.show {
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
     transform: translateX(0);
 }
 
-/* Responsive Styles */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: brown;
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.menu {
+    list-style: none;
+    padding: 1rem;
+}
+
+.menu-item {
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.menu-item i {
+    margin-right: 10px;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.submenu {
+    list-style: none;
+    padding-left: 1.5rem;
+}
+
+.submenu-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.submenu-item i {
+    margin-right: 5px;
+}
+
+.submenu-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.signout-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: brown;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signout-btn i {
+    margin-right: 10px;
+}
+
+/* Content Styling */
+.content {
+    margin-left: 250px;
+    padding: 2rem;
+    flex: 1;
+    transition: margin-left 0.3s ease;
+}
+
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: maroon;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+/* Responsive Styling */
 @media (max-width: 768px) {
-    #sidebar {
+    .sidebar {
         transform: translateX(-100%);
     }
-    
-    #sidebar.show {
+
+    .sidebar.open {
         transform: translateX(0);
     }
 
-    #content {
+    .content {
         margin-left: 0;
     }
 
-    #hamburger-icon {
+    .hamburger-btn {
         display: block;
     }
 }
