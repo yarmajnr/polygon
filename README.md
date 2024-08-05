@@ -1,27 +1,30 @@
 # Polygon Restaurant
 
-A web application for Polygon Restaurant with real-time data features.
+This is a web application for a restaurant where users can view available food, make orders, and manage their wallet.
 
-## Technologies Used
+## Setup Instructions
 
-- Django (Backend)
-- JavaScript (Frontend)
-- CSS (Styling)
-- GitHub Pages (Hosting)
+### Backend
+1. Navigate to the `backend` directory:
+    ```sh
+    cd backend
+    ```
+2. Install dependencies:
+    ```sh
+    pip install -r requirements.txt
+    ```
+3. Run database migrations:
+    ```sh
+    python manage.py migrate
+    ```
+4. Start the server:
+    ```sh
+    python manage.py runserver
+    ```
 
-## How to Run
-
-1. **Backend**:
-   - Navigate to the `backend` directory.
-   - Install dependencies: `pip install -r requirements.txt`
-   - Run server: `python manage.py runserver`
-
-2. **Frontend**:
-   - Navigate to the `frontend` directory.
-   - Install dependencies: `yarn install` or `npm install`
-   - Start the development server: `yarn start` or `npm start`
-
-## Deployment
-
-- The `index.html` is in the root directory for GitHub Pages to serve the static content.
-- Ensure the backend is running to provide API endpoints for real-time data.
+### Frontend
+1. Navigate to the project root:
+    ```sh
+    cd ../
+    ```
+2. Open `index.html` in your browser.
