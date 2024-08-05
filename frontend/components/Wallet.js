@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { fundWallet } from '../utils/api';
 
-const Wallet = ({ balance }) => (
-    <div>
-        <h1>Your Wallet</h1>
-        <p>Balance: ₦{balance}</p>
-        <a href="https://paystack.com/pay/polygon">Fund Wallet</a>
-    </div>
-);
+function Wallet() {
+    const [balance, setBalance] = useState(0);
+
+    useEffect(() => {
+        // Fetch real-time wallet balance from API
+        // Example API call: fetchWalletBalance().then(balance => setBalance(balance));
+    }, []);
+
+    const handleFundWallet = () => {
+        fundWallet();
+    };
+
+    return (
+        <div>
+            <h2>Wallet Balance: ₦{balance}</h2>
+            <button onClick={handleFundWallet}>Fund Wallet</button>
+        </div>
+    );
+}
 
 export default Wallet;
-
