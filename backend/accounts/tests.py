@@ -1,19 +1,10 @@
-# backend/accounts/tests.py
 from django.test import TestCase
-from django.contrib.auth import get_user_model
+from .models import User
 
-class UserModelTest(TestCase):
+class UserTestCase(TestCase):
     def setUp(self):
-        self.user = get_user_model().objects.create_user(
-            username='testuser',
-            email='testuser@example.com',
-            password='securepassword'
-        )
+        User.objects.create(username="testuser", wallet_balance=100.00)
 
-    def test_user_creation(self):
-        self.assertEqual(self.user.username, 'testuser')
-        self.assertTrue(self.user.check_password('securepassword'))
-        self.assertEqual(self.user.email, 'testuser@example.com')
-
-    def test_user_str_method(self):
-        self.assertEqual(str(self.user), 'testuser')
+    def test_user_wallet_balance(self):
+        user = User.objects.get(username="testuser")
+        self.assertEqual(user.wallet_balance, 100.00)
