@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Home = () => (
-    <div>
-        <h1>Welcome to Polygon Restaurant</h1>
-        <p>Your one-stop shop for delicious meals.</p>
-    </div>
-);
+function Home() {
+    return (
+        <div>
+            <h2>Welcome to Polygon Restaurant</h2>
+        </div>
+    );
+}
 
 export default Home;
