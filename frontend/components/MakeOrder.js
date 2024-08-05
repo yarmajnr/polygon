@@ -1,33 +1,35 @@
-import React, { useState } from 'react';
-import { makeOrder } from '../utils/api';
+import React, { useState, useEffect } from 'react';
+import { getAvailableFoods, placeOrder } from '../utils/api';
 
-const MakeOrder = () => {
-    const [orderDetails, setOrderDetails] = useState('');
+function MakeOrder() {
+    const [foods, setFoods] = useState([]);
+    const [selectedFood, setSelectedFood] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const userId = 1; // Replace with actual user ID
-        const result = await makeOrder(userId, orderDetails);
-        if (result) {
-            alert('Order placed successfully');
-        } else {
-            alert('Failed to place order');
+    useEffect(() => {
+        // Fetch available foods from API
+        getAvailableFoods().then(fetchedFoods => setFoods(fetchedFoods));
+    }, []);
+
+    const handleOrder = () => {
+        if (selectedFood) {
+            placeOrder(selectedFood.id);
         }
     };
 
     return (
         <div>
-            <h1>Make an Order</h1>
-            <form onSubmit={handleSubmit}>
-                <textarea
-                    value={orderDetails}
-                    onChange={(e) => setOrderDetails(e.target.value)}
-                    placeholder="Enter your order details"
-                ></textarea>
-                <button type="submit">Place Order</button>
-            </form>
+            <h2>Make Order</h2>
+            <select onChange={(e) => setSelectedFood(foods.find(food => food.id === e.target.value))}>
+                <option value="">Select Food</option>
+                {foods.map(food => (
+                    <option key={food.id} value={food.id}>
+                        {food.name} - ₦{food.price}
+                    </option>
+                ))}
+            </select>
+            <button onClick={handleOrder}>Order Now</button>
         </div>
     );
-};
+}
 
 export default MakeOrder;
