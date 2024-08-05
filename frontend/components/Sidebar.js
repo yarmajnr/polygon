@@ -1,13 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Sidebar = ({ setCurrentPage }) => (
-    <div className="sidebar">
-        <a href="#" onClick={() => setCurrentPage('home')}>Home</a>
-        <a href="#" onClick={() => setCurrentPage('wallet')}>Wallet</a>
-        <a href="#" onClick={() => setCurrentPage('availableFood')}>Available Food</a>
-        <a href="#" onClick={() => setCurrentPage('makeOrder')}>Make Order</a>
-        <a href="#" onClick={() => setCurrentPage('signout')}>Sign Out</a>
-    </div>
-);
+function Sidebar() {
+    return (
+        <div className="sidebar">
+            <ul>
+                <li><Link to="/">Home</Link></li>
+                <li>
+                    <Link to="/wallet">Wallet</Link>
+                </li>
+                <li><Link to="/available-food">Available Food</Link></li>
+                <li><Link to="/make-order">Make Order</Link></li>
+            </ul>
+        </div>
+    );
+}
 
 export default Sidebar;
