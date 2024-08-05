@@ -1,96 +1,38 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const root = document.getElementById("root");
+document.addEventListener('DOMContentLoaded', function () {
+    const sidebar = document.getElementById('sidebar');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const content = document.getElementById('content');
 
-    const nav = document.createElement("nav");
-    nav.innerHTML = `
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#wallet">Wallet</a></li>
-            <li><a href="#available-food">Available Food</a></li>
-            <li><a href="#make-order">Make Order</a></li>
-        </ul>
-    `;
+    hamburgerIcon.addEventListener('click', function () {
+        sidebar.classList.toggle('show');
+    });
 
-    const main = document.createElement("main");
-    main.innerHTML = `
-        <section id="home">
-            <h1>Welcome to Polygon Restaurant</h1>
-        </section>
-        <section id="wallet" style="display: none;">
-            <h1>Wallet</h1>
-            <p>Balance: <span id="wallet-balance">0.00</span> NGN</p>
-            <button id="fund-wallet">Fund Wallet</button>
-        </section>
-        <section id="available-food" style="display: none;">
-            <h1>Available Food</h1>
-            <ul id="food-list"></ul>
-        </section>
-        <section id="make-order" style="display: none;">
-            <h1>Make Order</h1>
-            <form id="order-form">
-                <label for="food-item">Food Item:</label>
-                <input type="text" id="food-item" name="food-item">
-                <label for="price">Price:</label>
-                <input type="number" id="price" name="price">
-                <button type="submit">Order</button>
-            </form>
-        </section>
-    `;
-
-    root.appendChild(nav);
-    root.appendChild(main);
-
-    document.querySelectorAll("nav ul li a").forEach(link => {
-        link.addEventListener("click", function(event) {
-            event.preventDefault();
-            const targetId = this.getAttribute("href").substring(1);
-            document.querySelectorAll("main section").forEach(section => {
-                section.style.display = "none";
-            });
-            document.getElementById(targetId).style.display = "block";
+    document.querySelectorAll('#sidebar ul li a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            const page = link.getAttribute('id');
+            loadContent(page);
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('show');
+            }
         });
     });
 
-    const walletBalanceSpan = document.getElementById("wallet-balance");
-    const fundWalletButton = document.getElementById("fund-wallet");
+    function loadContent(page) {
+        if (page === 'wallet') {
+            content.innerHTML = `
+                <h2>Wallet</h2>
+                <p>Current balance: &#8358;0.00</p>
+                <button id="fund-wallet-btn">Fund Wallet</button>
+            `;
 
-    fundWalletButton.addEventListener("click", function() {
-        fetch('/api/fund-wallet/', { method: 'POST' })
-            .then(response => response.json())
-            .then(data => {
-                walletBalanceSpan.textContent = data.new_balance;
+            document.getElementById('fund-wallet-btn').addEventListener('click', function () {
+                window.location.href = 'https://paystack.com/pay/polygon';
             });
-    });
+        } else {
+            content.innerHTML = `<h2>${page.replace(/-/g, ' ')}</h2><p>Content for ${page.replace(/-/g, ' ')} goes here.</p>`;
+        }
+    }
 
-    const foodList = document.getElementById("food-list");
-
-    fetch('/api/posts/')
-        .then(response => response.json())
-        .then(posts => {
-            posts.forEach(post => {
-                const li = document.createElement("li");
-                li.textContent = `${post.title} - ${post.content}`;
-                foodList.appendChild(li);
-            });
-        });
-
-    const orderForm = document.getElementById("order-form");
-
-    orderForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-        const foodItem = this['food-item'].value;
-        const price = this['price'].value;
-
-        fetch('/api/orders/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ food_item: foodItem, price: price }),
-        })
-        .then(response => response.json())
-        .then(order => {
-            alert(`Order placed: ${order.food_item} for ${order.price} NGN`);
-        });
-    });
+    loadContent('home'); // Load home content by default
 });
