@@ -1,13 +1,12 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
 from .models import Post
+from accounts.models import User
 
 class PostTestCase(TestCase):
     def setUp(self):
-        user = User.objects.create(username='testuser')
-        Post.objects.create(user=user, food_item='Burger', price=5.00)
+        user = User.objects.create(username="testuser")
+        Post.objects.create(title="Test Post", content="Content of the test post", author=user)
 
     def test_post_creation(self):
-        user = User.objects.get(username='testuser')
-        post = Post.objects.get(user=user)
-        self.assertEqual(post.food_item, 'Burger')
+        post = Post.objects.get(title="Test Post")
+        self.assertEqual(post.content, "Content of the test post")
