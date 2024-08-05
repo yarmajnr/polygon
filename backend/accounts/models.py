@@ -1,7 +1,5 @@
-# backend/accounts/models.py
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
-    # You can add custom fields here if needed
-    pass
+    wallet_balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
